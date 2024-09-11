@@ -1,0 +1,23 @@
+{
+  "name": "electron-study",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main/index.js",
+  "scripts": {
+    "dev": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "electron": "22",
+    "eslint": "^9.9.1",
+    "globals": "^15.9.0",
+    "redux": "^5.0.1"
+  },
+  "dependencies": {
+    "@electron/remote": "^2.1.2",
+    "lodash": "^4.17.21"
+  }
+}

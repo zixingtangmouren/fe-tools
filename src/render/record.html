@@ -9,6 +9,7 @@
 
 <body>
   <h1>record</h1>
+  <span id="value"></span>
 </body>
 <script src="./setup.js"></script>
 <script>
@@ -17,6 +18,15 @@
   window.master.services.ipc.on('fuck', () => {
     console.log('fuck too')
   })
+
+  function render() {
+    const state = window.master.stores.reduxStore.getState();
+    document.getElementById('value').innerText = state.counter.value
+  }
+
+  render();
+
+  window.master.stores.reduxStore.subscribe(render);
 </script>
 
 </html>

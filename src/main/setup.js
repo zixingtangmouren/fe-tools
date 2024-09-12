@@ -3,8 +3,10 @@ const {
   MAIN_PROCESS_KEY,
   RECORD_PROCESS_KEY,
 } = require('./constants/processKeys');
-const regitserAllWindows = require('./windowServices/windows');
+const regitserAllWindows = require('./windowService/windows');
 const MainIPC = require('./IPC/MainIPC');
+const PluginsService = require('./pluginsService');
+const initReduxStore = require('./stores/reduxStore');
 
 module.exports = function setup() {
   require('@electron/remote/main').initialize();
@@ -12,13 +14,23 @@ module.exports = function setup() {
   // 初始化 master 全局对象
   global.master = {};
   global.master.services = {};
+  global.master.stores = {};
 
   // 初始化各种服务
-  const windowServices = require('./windowServices');
+  const windowServices = require('./windowService');
   global.master.services.windowService = windowServices;
 
+  // 挂载 ipc 服务
   const ipc = new MainIPC({ processKey: MAIN_PROCESS_KEY });
   global.master.services.ipc = ipc;
+
+  // 挂载插件服务
+  const pluginsService = new PluginsService();
+  global.master.services.pluginsService = pluginsService;
+
+  // 初始化 redux stores
+  const reduxStore = initReduxStore();
+  global.master.stores.reduxStore = reduxStore;
 
   // 注册窗口、打开首页
   regitserAllWindows();

@@ -10,10 +10,57 @@
 <body>
 
   <h1>hello world</h1>
+
+  <p>data: <span id="value"></span></p>
+
+  <button id="open-record">open record</button>
+
+  <button id="open-webview">open webview</button>
+
+  <button id="install-lib">install lib</button>
+
+  <button id="add">add</button>
+
+  <button id="minus">minus</button>
+
+
 </body>
 <script src="./setup.js"></script>
 <script>
   initMaster({ processKey: 'home' });
+
+  document.getElementById('open-record').addEventListener('click', () => {
+    window.master.services.ipc.send('open.record.window')
+  });
+
+
+  document.getElementById('open-webview').addEventListener('click', () => {
+    window.master.services.windowService.create('webview')
+  });
+
+  document.getElementById('install-lib').addEventListener('click', () => {
+    window.master.services.ipc.send('install.plugin', 'lodash')
+  });
+
+  document.getElementById('add').addEventListener('click', () => {
+    window.master.stores.reduxStore.dispatch({ type: 'counter/increment' })
+  });
+
+  document.getElementById('minus').addEventListener('click', () => {
+    window.master.stores.reduxStore.dispatch({ type: 'counter/decrement' })
+  });
+
+
+  function render() {
+    const state = window.master.stores.reduxStore.getState();
+    document.getElementById('value').innerText = state.counter.value
+  }
+
+  render();
+
+  window.master.stores.reduxStore.subscribe(render);
+
+
 </script>
 
 </html>

@@ -1,5 +1,5 @@
-const { app } = require('electron');
-const setup = require('./setup');
+import { app } from 'electron';
+import setup from './setup';
 
 app.whenReady().then(() => {
   setup();

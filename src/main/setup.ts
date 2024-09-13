@@ -1,14 +1,10 @@
-const {
-  HOME_PROCESS_KEY,
-  MAIN_PROCESS_KEY,
-  RECORD_PROCESS_KEY,
-} = require('./constants/processKeys');
-const regitserAllWindows = require('./windowService/windows');
-const MainIPC = require('./IPC/MainIPC');
-const PluginsService = require('./pluginsService');
-const initReduxStore = require('./stores/reduxStore');
+import { HOME_PROCESS_KEY, MAIN_PROCESS_KEY, RECORD_PROCESS_KEY } from './constants/processKeys';
+import regitserAllWindows from './windowService/windows';
+import MainIPC from './IPC/MainIPC';
+import PluginsService from './pluginsService';
+import initReduxStore from './stores/reduxStore';
 
-module.exports = function setup() {
+export default function setup() {
   require('@electron/remote/main').initialize();
 
   // 初始化 master 全局对象
@@ -41,4 +37,4 @@ module.exports = function setup() {
     console.log('data', data);
     windowServices.create(RECORD_PROCESS_KEY);
   });
-};
+}
